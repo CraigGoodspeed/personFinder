@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service
 @Service
 class PersonsServiceImpl @Autowired constructor(private val personRepository: PersonRepository): PersonsService {
 
+
+
     override fun getById(id: Long): Person {
         return personRepository.findById(id).orElseThrow {
             NoSuchElementException("Person with ID $id not found")

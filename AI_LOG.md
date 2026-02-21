@@ -44,21 +44,6 @@ Gemini now put everything in place, we can proceed. While creating the dto howev
 
 ---
 
-```
-i sometimes struggle with this, should a person.title be an enum? 
-```
-
-it gave me a good breakdown...
-
-| Feature | 	Enum                    | String |
-| --- |--------------------------| --- |
-| Data Integrity | High (restricted values) | Low (anything goes) |
-| Code Safety | High (compiler checks)   | Low (prone to typos) | 
-| Flexibility | Rigid                    | High |  
-
-
----
-
 i then decided to ask it to build the dto
 
 
@@ -283,6 +268,8 @@ and have the bio reflect that.
 
 
 this pointed me down the road of building a secure prompt on top of the input, quite handy.
+
+
 
 
 
