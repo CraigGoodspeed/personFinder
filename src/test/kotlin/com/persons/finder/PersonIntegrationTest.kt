@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
+import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.get
@@ -27,6 +28,20 @@ class PersonIntegrationTest @Autowired constructor(
 
     @Autowired
     private lateinit var context: WebApplicationContext
+
+    @Autowired
+    lateinit var jdbcTemplate: JdbcTemplate
+
+    @BeforeEach
+    fun truncate() {
+        // Disable constraints to allow truncating in any order
+        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY FALSE")
+        jdbcTemplate.execute("TRUNCATE TABLE person_hobbies")
+        jdbcTemplate.execute("TRUNCATE TABLE hobby")
+        jdbcTemplate.execute("TRUNCATE TABLE location")
+        jdbcTemplate.execute("TRUNCATE TABLE person")
+        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY TRUE")
+    }
 
     @BeforeEach
     fun printEndpoints() {

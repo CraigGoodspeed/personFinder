@@ -3,6 +3,7 @@ package com.persons.finder.facade
 import com.persons.finder.data.Hobby
 import com.persons.finder.data.Location
 import com.persons.finder.data.Person
+import com.persons.finder.domain.services.HobbyService
 import com.persons.finder.domain.services.LocationsService
 import com.persons.finder.domain.services.PersonsService
 import com.persons.finder.dto.LocationRequest
@@ -20,6 +21,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import org.springframework.context.ApplicationEventPublisher
 import kotlin.jvm.java
 
 
@@ -29,6 +31,8 @@ class PersonManagementServiceTest {
     @Mock lateinit var locationService: LocationsService
     @Mock lateinit var personMapper: PersonMapper
     @Mock lateinit var locationMapper: LocationMapper
+    @Mock lateinit var hobbyService: HobbyService
+    @Mock lateinit var applicationEventPublisher: ApplicationEventPublisher
     @InjectMocks lateinit var service: PersonManagementService
 
 
