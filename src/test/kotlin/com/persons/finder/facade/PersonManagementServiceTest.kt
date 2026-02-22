@@ -40,11 +40,13 @@ class PersonManagementServiceTest {
     @Test
     fun `registerNewPerson should map, save person, and then add location`() {
         // Arrange
-        val golfHobby = mutableSetOf(Hobby(0, "Golf"))
+        val hobby = Hobby(0, "Golf")
+        val golfHobby = mutableSetOf(hobby)
         val request = PersonRequest("John", "Dev", listOf("Golf"), 10.0, 20.0)
         val personEntity = Person(id = 1, name = "John", jobTitle = "Dev", hobbies = golfHobby)
         val locationEntity = Location(latitude = 10.0, longitude = 20.0, person = personEntity)
 
+        whenever(hobbyService.getOrCreateHobby("Golf")).thenReturn(hobby)
         whenever(personMapper.toPersonEntity(request, golfHobby)).thenReturn(personEntity)
         whenever(personMapper.toLocationEntity(request, personEntity)).thenReturn(locationEntity)
 
@@ -59,7 +61,8 @@ class PersonManagementServiceTest {
     @Test
     fun `updatePersonLocation should fetch person, remove old location, and add new one`() {
         // Arrange
-        val golfHobby = mutableSetOf(Hobby(0, "Golf"))
+        val hobby = Hobby(0, "Golf")
+        val golfHobby = mutableSetOf(hobby)
         val personId = 1L
         val request = LocationRequest(30.0, 40.0)
         val person = Person(id = personId, name = "John", jobTitle = "Dev", hobbies = golfHobby)
@@ -119,9 +122,11 @@ class PersonManagementServiceTest {
     fun `registerNewPerson should fail if mapper throws exception`() {
 
         // Arrange
-        val golfHobby = mutableSetOf(Hobby(0, "Golf"))
+        val hobby = Hobby(0, "Golf")
+        val golfHobby = mutableSetOf(hobby)
         val request = PersonRequest("John", "Dev", listOf("Golf"), 10.0, 20.0)
 
+        whenever(hobbyService.getOrCreateHobby("Golf")).thenReturn(hobby)
         whenever(personMapper.toPersonEntity(request, golfHobby))
             .thenThrow(IllegalArgumentException("Invalid name"))
 

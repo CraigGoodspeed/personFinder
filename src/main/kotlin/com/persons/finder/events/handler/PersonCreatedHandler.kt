@@ -13,9 +13,10 @@ class PersonCreatedHandler (val personService: PersonsService, val bioService: B
     @Async
     @EventListener
     fun handlePersonCreated(event: PersonCreatedEvent) {
+        val person = personService.getById(event.personId)
         val newBio =
-            bioService.getBio(event.person)
-        event.person.extremelyFunkyBio = newBio
-        personService.save(event.person)
+            bioService.getBio(person)
+        person.extremelyFunkyBio = newBio
+        personService.save(person)
     }
 }

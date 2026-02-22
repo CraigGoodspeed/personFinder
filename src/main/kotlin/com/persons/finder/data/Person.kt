@@ -15,7 +15,7 @@ data class Person(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
     val name: String = "",
-    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @ManyToMany(cascade = [CascadeType.MERGE, CascadeType.REFRESH])
     @JoinTable(
         name = "person_hobbies",
         joinColumns = [JoinColumn(name = "person_id")],

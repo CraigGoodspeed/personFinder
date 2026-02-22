@@ -1,6 +1,5 @@
 package com.persons.finder.facade
 
-import com.persons.finder.data.Hobby
 import com.persons.finder.data.Location
 import com.persons.finder.domain.services.HobbyService
 import com.persons.finder.domain.services.LocationsService
@@ -29,11 +28,11 @@ class PersonManagementService (
     fun registerNewPerson(request: PersonRequest) {
 
         val hobbyEntities = request.hobbies.map { name ->
-            hobbyService.getByName(name) ?: Hobby(name = name)
+            hobbyService.getOrCreateHobby(name)
         }.toMutableSet()
         val personEntity = personMapper.toPersonEntity(request, hobbyEntities)
         personService.save(personEntity)
-        applicationEventPublisher.publishEvent(PersonCreatedEvent(personEntity))
+        applicationEventPublisher.publishEvent(PersonCreatedEvent(personEntity.id))
         locationService.addLocation(
             personMapper.toLocationEntity(
                 request,

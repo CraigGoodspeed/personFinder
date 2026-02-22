@@ -6,4 +6,5 @@ interface HobbyService {
 
     fun getByName(name:String) : Hobby?
     fun findAll() : List<Hobby>
+    fun getOrCreateHobby(name : String) : Hobby
 }

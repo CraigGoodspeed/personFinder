@@ -29,8 +29,8 @@ class HobbyCacheTest {
         whenever(hobbyRepository.findByName(hobbyName)).thenReturn(mockHobby)
 
         // Act: Call the service twice
-        hobbyService.getByName(hobbyName)
-        hobbyService.getByName(hobbyName)
+        hobbyService.getOrCreateHobby(hobbyName)
+        hobbyService.getOrCreateHobby(hobbyName)
 
         // Assert: Verify the repository was called exactly ONCE
         verify(hobbyRepository, times(1)).findByName(hobbyName)
